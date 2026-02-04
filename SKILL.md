@@ -8,6 +8,7 @@ Give your OpenClaw agent a serverless backend for webhooks, data storage, and ba
 - **Persistent storage** beyond local memory (NoSQL + key-value)
 - **Background jobs** and scheduled tasks that run 24/7
 - **Queue workers** for async processing
+- **Autonomous workflows** with retries, branching, and state management
 
 ## Setup
 
@@ -79,9 +80,10 @@ export default app.init();
 ```javascript
 import { app, Datastore } from 'codehooks-js';
 
-app.job('0 9 * * *', async (_, { console }) => {
-  const db = await Datastore.open();
-  const events = await db.getMany('events', {});
+app.job('0 9 * * *', async (_, { jobId }) => {
+  console.log(`Running job: ${jobId}`);
+  const conn = await Datastore.open();
+  const events = await conn.getMany('events', {}).toArray();
   console.log('Daily summary:', events.length, 'events');
 });
 
@@ -94,10 +96,40 @@ export default app.init();
 import { app, Datastore } from 'codehooks-js';
 
 app.worker('processTask', async (req, res) => {
-  const { task } = req.body;
-  const db = await Datastore.open();
-  await db.updateOne('tasks', { _id: task.id }, { status: 'completed' });
+  const { task } = req.body.payload;
+  const conn = await Datastore.open();
+  await conn.updateOne('tasks', { _id: task.id }, { $set: { status: 'completed' } });
   res.end();
+});
+
+export default app.init();
+```
+
+### Autonomous workflow (multi-step with retries)
+
+```javascript
+import { app } from 'codehooks-js';
+
+const workflow = app.createWorkflow('myTask', 'Process tasks autonomously', {
+  begin: async function (state, goto) {
+    console.log('Starting task:', state.taskId);
+    goto('process', state);
+  },
+  process: async function (state, goto) {
+    // Do work here - workflow handles retries and state
+    state.result = await doWork(state.data);
+    goto('complete', state);
+  },
+  complete: function (state, goto) {
+    console.log('Done:', state.result);
+    goto(null, state); // End workflow
+  }
+});
+
+// Agent starts workflow via API
+app.post('/start', async (req, res) => {
+  const result = await workflow.start(req.body);
+  res.json(result);
 });
 
 export default app.init();
@@ -105,7 +137,7 @@ export default app.init();
 
 ---
 
-## Workflow: Let your agent build new endpoints
+## Development workflow: Let your agent build new endpoints
 
 1. Agent runs `coho prompt` and loads the development context
 2. Agent writes code using codehooks-js patterns
@@ -121,7 +153,8 @@ export default app.init();
 - You want persistent storage outside your local machine
 - You need scheduled jobs that run even when your device is off
 - You want to offload sensitive API integrations to a sandboxed environment
-- You need queues for async processing workflows
+- You need queues for async processing
+- You want autonomous multi-step workflows that run independently with retries
 
 ---
 

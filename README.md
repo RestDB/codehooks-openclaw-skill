@@ -10,6 +10,7 @@ OpenClaw agents run locally. That's great for privacy, but tricky when you need:
 - Persistent storage beyond local files
 - Scheduled jobs that run 24/7
 - Reliable integrations with Stripe, Shopify, GitHub
+- Multi-step workflows that run autonomously with retries and state management
 
 This skill gives your agent everything it needs to deploy and manage serverless backends.
 
@@ -48,9 +49,10 @@ coho prompt | pbcopy
 
 - **SKILL.md** — The skill file for OpenClaw
 - **examples/** — Ready-to-use code templates
-  - `webhook-handler.js` — Store incoming webhook events
+  - `webhook-handler.js` — Webhook with signature verification
   - `daily-job.js` — Scheduled task example
-  - `queue-worker.js` — Async processing
+  - `queue-worker.js` — Async queue processing
+  - `workflow-automation.js` — Multi-step autonomous workflows
 
 ## Commands reference
 
@@ -79,6 +81,26 @@ app.post('/stripe-webhook', async (req, res) => {
 
 export default app.init();
 ```
+
+## Workflows for autonomous agents
+
+Workflows let your agent kick off multi-step processes that run independently:
+
+```javascript
+// Agent starts a workflow
+const { workflowId } = await fetch('/workflow/start', {
+  method: 'POST',
+  body: JSON.stringify({
+    data: taskData,
+    callbackUrl: 'https://my-agent/webhook' // Get notified on completion
+  })
+}).then(r => r.json());
+
+// Workflow runs autonomously with retries, state persistence, and error handling
+// Agent gets notified via callback when done
+```
+
+See `examples/workflow-automation.js` for a complete example.
 
 ## Resources
 
