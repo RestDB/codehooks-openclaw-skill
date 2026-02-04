@@ -122,7 +122,7 @@ See `examples/workflow-automation.js` for a complete example.
 ## Resources
 
 - [Codehooks Documentation](https://codehooks.io/docs)
-- [Full development prompt](https://codehooks.io/llms.txt)
+- [AI development prompt](https://codehooks.io/docs/chatgpt-backend-api-prompt)
 - [webhook-verify](https://www.npmjs.com/package/webhook-verify) — Signature verification for Stripe, GitHub, Shopify, etc.
 - [More templates](https://github.com/RestDB/codehooks-io-templates)
 - [MCP Server](https://github.com/RestDB/codehooks-mcp-server)

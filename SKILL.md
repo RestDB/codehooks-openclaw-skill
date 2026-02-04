@@ -170,6 +170,6 @@ export default app.init();
 ## Resources
 
 - **Documentation:** https://codehooks.io/docs
-- **Full prompt:** Run `coho prompt` or visit https://codehooks.io/llms.txt
+- **AI prompt:** Run `coho prompt` or visit https://codehooks.io/docs/chatgpt-backend-api-prompt
 - **Templates:** https://github.com/RestDB/codehooks-io-templates
 - **MCP Server:** https://github.com/RestDB/codehooks-mcp-server
