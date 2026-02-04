@@ -59,8 +59,9 @@ All commands accept `--admintoken $CODEHOOKS_ADMIN_TOKEN` for non-interactive us
 | `coho deploy` | Deploy code (5 seconds to live) |
 | `coho info` | Get your endpoint URL |
 | `coho log -f` | Stream logs in real-time |
-| `coho data <collection> --query '{}'` | Query the database |
-| `coho data <collection> --add '{...}'` | Add data |
+| `coho query -c <collection> -q 'field=value'` | Query the database |
+| `coho import -c <collection> --file data.json` | Import data |
+| `coho export -c <collection>` | Export data |
 
 ---
 
