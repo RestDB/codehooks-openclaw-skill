@@ -51,7 +51,7 @@ coho prompt | pbcopy
 
 ## Commands your agent can use
 
-All commands accept `--admintoken $CODEHOOKS_ADMIN_TOKEN` for non-interactive use.
+All commands accept `--admintoken $CODEHOOKS_ADMIN_TOKEN` for non-interactive use. Full CLI reference: https://codehooks.io/docs/cli
 
 | Command | What it does |
 |---------|--------------|

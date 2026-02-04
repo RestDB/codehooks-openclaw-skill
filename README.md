@@ -60,7 +60,7 @@ coho prompt | pbcopy
 
 ## Commands reference
 
-All commands accept `--admintoken $CODEHOOKS_ADMIN_TOKEN` for non-interactive use.
+All commands accept `--admintoken $CODEHOOKS_ADMIN_TOKEN` for non-interactive use. [Full CLI reference](https://codehooks.io/docs/cli)
 
 | Command | Description |
 |---------|-------------|
