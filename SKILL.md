@@ -1,3 +1,9 @@
+---
+name: codehooks
+description: Deploy serverless backends for webhooks, data storage, scheduled jobs, and autonomous workflows.
+metadata: { "openclaw": { "emoji": "🪝", "requires": { "bins": ["coho"], "env": ["CODEHOOKS_ADMIN_TOKEN"] } } }
+---
+
 # Codehooks Backend Skill
 
 Give your OpenClaw agent a serverless backend for webhooks, data storage, and background jobs.
