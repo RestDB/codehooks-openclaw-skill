@@ -8,6 +8,12 @@ metadata: { "openclaw": { "emoji": "🪝", "requires": { "bins": ["coho"], "env"
 
 Give your OpenClaw agent a serverless backend for webhooks, data storage, and background jobs.
 
+## Your agent can deploy code
+
+With this skill, your agent can write JavaScript/TypeScript code and deploy it to a live serverless backend in 5 seconds. No human intervention required — the agent iterates autonomously.
+
+⚠️ **Warning:** This gives your agent the ability to deploy and run code on a live server. Review your agent's actions, set appropriate permissions, and monitor usage. You are responsible for any code your agent deploys.
+
 ## What this skill enables
 
 - **Webhook endpoints** that external services can call (Stripe, GitHub, Shopify, etc.)
