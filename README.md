@@ -16,23 +16,21 @@ This skill gives your agent everything it needs to deploy and manage serverless 
 
 ## Quick start
 
+**Human does once:**
 ```bash
-# Install the Codehooks CLI
 npm install -g codehooks
+coho login
+coho create my-backend
+coho add-admintoken
 ```
 
-**For agents (non-interactive):** Use an admin token instead of `coho login`:
+Give the admin token to your agent.
 
+**Agent uses:**
 ```bash
-# Store token in environment variable
 export CODEHOOKS_ADMIN_TOKEN="your-token-here"
-
-# All commands accept --admintoken flag
-coho create my-backend --admintoken $CODEHOOKS_ADMIN_TOKEN
 coho deploy --admintoken $CODEHOOKS_ADMIN_TOKEN
 ```
-
-**To get an admin token:** Run `coho add-admintoken` from an authenticated session.
 
 Your agent now has a live webhook URL, database, and job runner.
 
