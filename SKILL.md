@@ -1,5 +1,5 @@
 ---
-name: codehooks
+name: codehooks-backend
 description: Deploy serverless backends for webhooks, data storage, scheduled jobs, and autonomous workflows.
 metadata: { "openclaw": { "emoji": "🪝", "requires": { "bins": ["coho"], "env": ["CODEHOOKS_ADMIN_TOKEN"] } } }
 ---
