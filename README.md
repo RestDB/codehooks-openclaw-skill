@@ -1,6 +1,6 @@
 # codehooks-openclaw-skill
 
-Give your OpenClaw agent a serverless backend for webhooks, data storage, and background jobs.
+Give your OpenClaw agent a serverless backend for webhooks, data storage, scheduled jobs, queue workers, and autonomous workflows.
 
 ## Why this exists
 

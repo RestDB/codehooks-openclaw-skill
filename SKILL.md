@@ -6,7 +6,7 @@ metadata: { "openclaw": { "emoji": "🪝", "requires": { "bins": ["coho"], "env"
 
 # Codehooks Backend Skill
 
-Give your OpenClaw agent a serverless backend for webhooks, data storage, and background jobs.
+Give your OpenClaw agent a serverless backend for webhooks, data storage, scheduled jobs, queue workers, and autonomous workflows.
 
 ## Your agent can deploy code
 
