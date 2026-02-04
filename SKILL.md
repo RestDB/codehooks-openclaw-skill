@@ -15,12 +15,23 @@ Give your OpenClaw agent a serverless backend for webhooks, data storage, and ba
 ```bash
 # Install the CLI
 npm install -g codehooks
-
-# Authenticate and create a project
-coho login
-coho create openclaw-backend
-coho deploy
 ```
+
+**For agents (non-interactive):** Use an admin token instead of `coho login`:
+
+```bash
+# All commands accept --admintoken flag
+coho create openclaw-backend --admintoken YOUR_ADMIN_TOKEN
+coho deploy --admintoken YOUR_ADMIN_TOKEN
+```
+
+Store the token in an environment variable:
+```bash
+export CODEHOOKS_ADMIN_TOKEN="your-token-here"
+coho deploy --admintoken $CODEHOOKS_ADMIN_TOKEN
+```
+
+**To get an admin token:** Run `coho add-admintoken` from an authenticated session (human does this once, gives token to agent).
 
 Your backend is now live. Took about 30 seconds.
 
@@ -44,6 +55,8 @@ coho prompt | pbcopy
 ---
 
 ## Commands your agent can use
+
+All commands accept `--admintoken $CODEHOOKS_ADMIN_TOKEN` for non-interactive use.
 
 | Command | What it does |
 |---------|--------------|
