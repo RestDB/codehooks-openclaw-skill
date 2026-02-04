@@ -76,10 +76,20 @@ All commands accept `--admintoken $CODEHOOKS_ADMIN_TOKEN` for non-interactive us
 
 ```javascript
 import { app, Datastore } from 'codehooks-js';
+import { verify } from 'webhook-verify';
+
+// Allow webhook endpoint without JWT authentication
+app.auth('/stripe-webhook', (req, res, next) => next());
 
 app.post('/stripe-webhook', async (req, res) => {
-  const db = await Datastore.open();
-  await db.insertOne('payments', {
+  // Verify signature using rawBody (essential for HMAC validation)
+  const isValid = verify('stripe', req.rawBody, req.headers, process.env.STRIPE_WEBHOOK_SECRET);
+  if (!isValid) {
+    return res.status(401).send('Invalid signature');
+  }
+
+  const conn = await Datastore.open();
+  await conn.insertOne('payments', {
     event: req.body,
     receivedAt: new Date().toISOString()
   });
@@ -113,6 +123,7 @@ See `examples/workflow-automation.js` for a complete example.
 
 - [Codehooks Documentation](https://codehooks.io/docs)
 - [Full development prompt](https://codehooks.io/llms.txt)
+- [webhook-verify](https://www.npmjs.com/package/webhook-verify) — Signature verification for Stripe, GitHub, Shopify, etc.
 - [More templates](https://github.com/RestDB/codehooks-io-templates)
 - [MCP Server](https://github.com/RestDB/codehooks-mcp-server)
 
