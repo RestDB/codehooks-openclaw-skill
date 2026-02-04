@@ -32,7 +32,7 @@ export CODEHOOKS_ADMIN_TOKEN="your-token-here"
 coho deploy --admintoken $CODEHOOKS_ADMIN_TOKEN
 ```
 
-Your agent now has a live webhook URL, database, and job runner.
+Your agent now has a live webhook URL, database, and job runner. Codehooks has a free tier with no credit card required.
 
 ## Give your agent the full context
 

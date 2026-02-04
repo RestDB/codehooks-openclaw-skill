@@ -12,6 +12,8 @@ Give your OpenClaw agent a serverless backend for webhooks, data storage, and ba
 
 With this skill, your agent can write JavaScript/TypeScript code and deploy it to a live serverless backend in 5 seconds. No human intervention required — the agent iterates autonomously.
 
+Codehooks has a free tier with no credit card required — your agent can start deploying immediately.
+
 ⚠️ **Warning:** This gives your agent the ability to deploy and run code on a live server. Review your agent's actions, set appropriate permissions, and monitor usage. You are responsible for any code your agent deploys.
 
 ## What this skill enables
