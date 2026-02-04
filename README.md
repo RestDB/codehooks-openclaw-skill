@@ -66,7 +66,7 @@ All commands accept `--admintoken $CODEHOOKS_ADMIN_TOKEN` for non-interactive us
 |---------|-------------|
 | `coho prompt` | Get full development context |
 | `coho deploy` | Deploy code (5 seconds) |
-| `coho info` | Get your endpoint URL |
+| `coho info --examples` | Get endpoint URL with example API calls |
 | `coho log -f` | Stream logs |
 | `coho query -c <collection> -q 'field=value'` | Query database |
 | `coho import -c <collection> --file data.json` | Import data |
