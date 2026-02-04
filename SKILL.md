@@ -1,12 +1,12 @@
 ---
 name: codehooks-backend
-description: Deploy serverless backends for webhooks, data storage, scheduled jobs, queue workers, and autonomous workflows.
+description: Deploy serverless backends for REST APIs, webhooks, data storage, scheduled jobs, queue workers, and autonomous workflows.
 metadata: { "openclaw": { "emoji": "🪝", "requires": { "bins": ["coho"], "env": ["CODEHOOKS_ADMIN_TOKEN"] } } }
 ---
 
 # Codehooks Backend Skill
 
-Give your OpenClaw agent a serverless backend for webhooks, data storage, scheduled jobs, queue workers, and autonomous workflows.
+Give your OpenClaw agent a serverless backend for REST APIs, webhooks, data storage, scheduled jobs, queue workers, and autonomous workflows.
 
 ## Your agent can deploy code
 
@@ -18,6 +18,8 @@ Codehooks has a free tier to get started, and paid plans have no extra charges f
 
 ## What this skill enables
 
+- **REST APIs** with automatic OpenAPI/Swagger documentation
+- **Instant CRUD APIs** using `crudlify()` with schema validation
 - **Webhook endpoints** that external services can call (Stripe, GitHub, Shopify, etc.)
 - **Persistent storage** beyond local memory (NoSQL + key-value)
 - **Background jobs** and scheduled tasks that run 24/7
@@ -81,14 +83,33 @@ All commands accept `--admintoken $CODEHOOKS_ADMIN_TOKEN` for non-interactive us
 
 ## Code examples
 
+### Instant CRUD API with validation
+
+```javascript
+import { app } from 'codehooks-js';
+import { object, string, number } from 'yup';
+
+const productSchema = object({
+  name: string().required(),
+  price: number().positive().required(),
+  category: string().required()
+});
+
+// Creates GET, POST, PUT, DELETE endpoints automatically
+// OpenAPI docs available at /.well-known/openapi
+app.crudlify({ product: productSchema });
+
+export default app.init();
+```
+
 ### Webhook that stores incoming data
 
 ```javascript
 import { app, Datastore } from 'codehooks-js';
 
 app.post('/webhook', async (req, res) => {
-  const db = await Datastore.open();
-  await db.insertOne('events', {
+  const conn = await Datastore.open();
+  await conn.insertOne('events', {
     ...req.body,
     receivedAt: new Date().toISOString()
   });

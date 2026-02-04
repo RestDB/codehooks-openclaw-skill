@@ -1,11 +1,12 @@
 # codehooks-openclaw-skill
 
-Give your OpenClaw agent a serverless backend for webhooks, data storage, scheduled jobs, queue workers, and autonomous workflows.
+Give your OpenClaw agent a serverless backend for REST APIs, webhooks, data storage, scheduled jobs, queue workers, and autonomous workflows.
 
 ## Why this exists
 
 OpenClaw agents run locally. That's great for privacy, but tricky when you need:
 
+- REST APIs with automatic OpenAPI documentation
 - Webhook endpoints that work when your Mac is asleep
 - Persistent storage beyond local files
 - Scheduled jobs that run 24/7
@@ -122,6 +123,7 @@ See `examples/workflow-automation.js` for a complete example.
 ## Resources
 
 - [Codehooks Documentation](https://codehooks.io/docs)
+- [OpenAPI/Swagger Docs](https://codehooks.io/docs/openapi-swagger-docs)
 - [AI development prompt](https://codehooks.io/docs/chatgpt-backend-api-prompt)
 - [webhook-verify](https://www.npmjs.com/package/webhook-verify) — Signature verification for Stripe, GitHub, Shopify, etc.
 - [More templates](https://github.com/RestDB/codehooks-io-templates)
