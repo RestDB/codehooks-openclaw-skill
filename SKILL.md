@@ -87,12 +87,12 @@ All commands accept `--admintoken $CODEHOOKS_ADMIN_TOKEN` for non-interactive us
 
 ```javascript
 import { app } from 'codehooks-js';
-import { object, string, number } from 'yup';
+import * as Yup from 'yup';
 
-const productSchema = object({
-  name: string().required(),
-  price: number().positive().required(),
-  category: string().required()
+const productSchema = Yup.object({
+  name: Yup.string().required(),
+  price: Yup.number().positive().required(),
+  category: Yup.string().required()
 });
 
 // Creates GET, POST, PUT, DELETE endpoints automatically
@@ -106,6 +106,11 @@ export default app.init();
 
 ```javascript
 import { app, Datastore } from 'codehooks-js';
+
+// Allow webhook endpoint without JWT authentication
+app.auth('/webhook', (req, res, next) => {
+  next();
+});
 
 app.post('/webhook', async (req, res) => {
   const conn = await Datastore.open();
@@ -161,7 +166,7 @@ const workflow = app.createWorkflow('myTask', 'Process tasks autonomously', {
   },
   process: async function (state, goto) {
     // Do work here - workflow handles retries and state
-    state.result = await doWork(state.data);
+    state = { ...state, result: 'processed' };
     goto('complete', state);
   },
   complete: function (state, goto) {
