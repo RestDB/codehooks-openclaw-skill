@@ -122,6 +122,7 @@ See `examples/workflow-automation.js` for a complete example.
 
 ## Resources
 
+- [How to Give Your OpenClaw Agent a Backend](https://codehooks.io/blog/openclaw-backend) — Blog post walkthrough
 - [Codehooks Documentation](https://codehooks.io/docs)
 - [OpenAPI/Swagger Docs](https://codehooks.io/docs/openapi-swagger-docs)
 - [AI development prompt](https://codehooks.io/docs/chatgpt-backend-api-prompt)
