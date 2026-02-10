@@ -63,6 +63,22 @@ This outputs the complete Codehooks development prompt — routing, database, qu
 coho prompt | pbcopy
 ```
 
+## Understand existing projects
+
+Before modifying an existing project, get the full picture:
+
+```bash
+# Returns JSON with collections, stats, recent deploys, and error logs
+coho doctor
+
+# Describe the app structure — collections, schemas, queues, files
+coho describe
+```
+
+`coho doctor` is the most powerful diagnostic command — it returns structured JSON covering database collections with document counts, deployment history, queue and worker status, and recent error logs. Always run it when joining an existing project or debugging issues.
+
+`coho describe` complements doctor by showing the structural overview: what collections exist, their schemas, registered queues, and deployed files.
+
 ---
 
 ## Commands your agent can use
@@ -72,10 +88,14 @@ All commands accept `--admintoken $CODEHOOKS_ADMIN_TOKEN` for non-interactive us
 | Command | What it does |
 |---------|--------------|
 | `coho prompt` | Get the full development context |
+| `coho doctor` | Diagnose project state — collections, stats, deploys, error logs |
+| `coho describe` | Describe app structure — collections, schemas, queues, files |
 | `coho deploy` | Deploy code (5 seconds to live) |
-| `coho info --examples` | Get endpoint URL with example API calls |
+| `coho info --examples` | Get endpoint URLs with cURL examples |
 | `coho log -f` | Stream logs in real-time |
 | `coho query -c <collection> -q 'field=value'` | Query the database |
+| `coho queue-status` | Check queue status |
+| `coho workflow-status` | Check workflow status |
 | `coho import -c <collection> --file data.json` | Import data |
 | `coho export -c <collection>` | Export data |
 
@@ -186,13 +206,25 @@ export default app.init();
 
 ---
 
+## Important patterns
+
+- **`getMany()` returns a stream** — use `.toArray()` when you need to manipulate data (sort, filter, map)
+- **Webhook signatures:** Use `req.rawBody` for signature verification, not `req.body`
+- **No filesystem access:** `fs`, `path`, `os` are not available — this is a serverless environment
+- **Secrets:** Use `process.env.VARIABLE_NAME` for API keys and secrets
+- **Static files:** `app.static({ route: '/app', directory: '/public' })` serves static sites from deployed source
+- **File storage:** `app.storage({ route: '/docs', directory: '/uploads' })` serves uploaded files
+
+---
+
 ## Development workflow: Let your agent build new endpoints
 
 1. Agent runs `coho prompt` and loads the development context
-2. Agent writes code using codehooks-js patterns
-3. Agent runs `coho deploy` (5 seconds to live)
-4. Agent verifies with `coho log -f` or `coho data`
-5. Agent iterates — the fast deploy loop won't break your flow
+2. For existing projects, agent runs `coho doctor` and `coho describe` to understand what's deployed
+3. Agent writes code using codehooks-js patterns
+4. Agent runs `coho deploy` (5 seconds to live)
+5. Agent verifies with `coho log -f` or tests endpoints with `coho info --examples`
+6. Agent iterates — the fast deploy loop enables rapid development
 
 ---
 
@@ -210,6 +242,7 @@ export default app.init();
 ## Resources
 
 - **Documentation:** https://codehooks.io/docs
-- **AI prompt:** Run `coho prompt` or visit https://codehooks.io/docs/chatgpt-backend-api-prompt
+- **CLI reference:** https://codehooks.io/docs/cli
+- **AI prompt:** Run `coho prompt` or visit https://codehooks.io/llms.txt
 - **Templates:** https://github.com/RestDB/codehooks-io-templates
 - **MCP Server:** https://github.com/RestDB/codehooks-mcp-server
